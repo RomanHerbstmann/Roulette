@@ -1,5 +1,5 @@
 ﻿<!--Region Window initial-->
-    <Window x:Class="Roulette.MainWindow"
+<Window x:Class="Roulette.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,13 +7,13 @@
         xmlns:local="clr-namespace:Roulette"
         mc:Ignorable="d"
         Title="MainWindow" 
-        Height="1060" 
+        Height="1080" 
         Width="1920"
         Background="#2d2d2d"
         WindowStartupLocation="CenterScreen"    
         WindowStyle="None"
         WindowState="Maximized">
-        <!--Endregion-->
+    <!--Endregion-->
     <Window.DataContext>
         <local:ViewModel/>
     </Window.DataContext>
@@ -27,12 +27,87 @@
         </Grid.RowDefinitions>
         <!--Endregion-->
         <!--Region btnStart-->
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
             <Button Height="50" Width="200" Content="Start" Background="Transparent" Foreground="White" FontSize="30" FontWeight="DemiBold" Command="{Binding btnStartClickCommand}" BorderThickness="0"></Button>
         </StackPanel>
         <!--Endregion-->
         <!--Region User selection-->
-        
+        <Grid Grid.Row="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="nicht gesetzte Felder" Foreground="White" FontWeight="ExtraBold" FontSize="20" HorizontalAlignment="Center"></Label>
+                    <ListBox Height="600" Width="400" ></ListBox>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button Background="Transparent" BorderThickness="0">
+                        <Button.RenderTransform>
+                            <RotateTransform/>
+                        </Button.RenderTransform>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <EventTrigger RoutedEvent="Click">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(RotateTransform.Angle)" To="-360" Duration="0:0:0.5" From="0"></DoubleAnimation>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <TextBlock Text="►" Foreground="White" FontWeight="DemiBold" FontSize="200" x:Name="tbArrowRight"></TextBlock>
+                    </Button>
+                    <Button Background="Transparent" BorderThickness="0">
+                        <Button.RenderTransform>
+                            <RotateTransform/>
+                        </Button.RenderTransform>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <EventTrigger RoutedEvent="Click">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(RotateTransform.Angle)" To="360" Duration="0:0:0.5" From="0" ></DoubleAnimation>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <TextBlock Text="◄" Foreground="White" FontWeight="DemiBold" FontSize="200" x:Name="tbArrowLeft"></TextBlock>
+                    </Button>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="gesetzte Felder" Foreground="White" FontWeight="ExtraBold" FontSize="20" HorizontalAlignment="Center"></Label>
+                    <ListBox Height="600" Width="400" ></ListBox>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
         <!--Endregion-->
         <!--Region wining number-->
         <StackPanel Grid.Row="3"  HorizontalAlignment="Center" VerticalAlignment="Center" Height="180" Width="180">
@@ -45,12 +120,16 @@
         <!--Region other mode -->
         <!--<StackPanel Grid.Row ="3" VerticalAlignment="Center">
             <ItemsControl Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
-                --><!--<StackPanel Height="120" HorizontalAlignment="Center" VerticalAlignment="Center">
-                </StackPanel>--><!--
+                -->
+        <!--<StackPanel Height="120" HorizontalAlignment="Center" VerticalAlignment="Center">
+                </StackPanel>-->
+        <!--
                     <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled" Margin="10" Width="1880">
                         <StackPanel Orientation="Horizontal">
                         <Border CornerRadius="5" Height="120" Width="8" BorderBrush="White"  Background="Blue"></Border>
-                        --><!--Region Felder--><!--
+                        -->
+        <!--Region Felder-->
+        <!--
                             <Grid Margin="10,0,0,0">
                                 <Rectangle Height="100"  Width="100" Fill="Green"/>
                                 <TextBlock Text="0" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="80" Foreground="White" FontWeight="DemiBold"/>
@@ -199,7 +278,9 @@
                                 <Rectangle Height="100"  Width="100" Fill="Red"/>
                                 <TextBlock Text="36" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="80" Foreground="White" FontWeight="DemiBold"/>
                             </Grid>
-                            --><!--Endregion--><!--
+                            -->
+        <!--Endregion-->
+        <!--
                         </StackPanel>
                     </ScrollViewer>
             </ItemsControl>
