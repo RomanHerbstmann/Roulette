@@ -14,7 +14,7 @@ using System.Collections.ObjectModel;
 
 namespace Roulette
 {
-    public class ViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;
@@ -40,7 +40,7 @@ namespace Roulette
         }
         #endregion
 
-        public ViewModel()
+        public MainWindowViewModel()
         {
             PropertyChanged += OnPropertyChanged;
 

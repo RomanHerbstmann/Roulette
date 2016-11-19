@@ -50,3 +50,5 @@ C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\
 C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\obj\Debug\Roulette.g.resources
 C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\obj\Debug\Roulette.Properties.Resources.resources
 C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\obj\Debug\Roulette.csproj.GenerateResource.Cache
+C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\obj\Debug\Login.g.cs
+C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\obj\Debug\Login.baml

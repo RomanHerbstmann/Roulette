@@ -15,7 +15,7 @@
         WindowState="Maximized">
     <!--Endregion-->
     <Window.DataContext>
-        <local:ViewModel/>
+        <local:MainWindowViewModel/>
     </Window.DataContext>
     <Grid>
         <!--Region RowDefinition-->
