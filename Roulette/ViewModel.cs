@@ -9,6 +9,8 @@ using System.Configuration;
 using System.IO;
 using System.Timers;
 using System.Windows.Media;
+using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace Roulette
 {
@@ -42,6 +44,8 @@ namespace Roulette
         {
             PropertyChanged += OnPropertyChanged;
 
+            btnRemoveSetClickCommand = new RelayCommand(btnRemoveSet_Click);
+            btnSetClickCommand = new RelayCommand(btnSet_Click);
             btnStartClickCommand = new RelayCommand(btnStart_Click);
 
             _fieldTemplateJsonPath = ConfigurationManager.AppSettings["Field.Template.Json.Path"];
@@ -50,6 +54,16 @@ namespace Roulette
 
             _randomFieldTimer = new Timer();
             _randomFieldTimer.Elapsed += _randomFieldTimer_Elapsed;
+
+            SelectedFieldNumbers = new ObservableCollection<int>();
+
+            NotSelectedFieldNumbers = new ObservableCollection<int>(_fieldTemplateList.Select(o => o.Number).ToList());
+
+            RandomEntry = new FieldTemplate
+            {
+                Number = 0,
+                Background = "green"
+            };
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -77,6 +91,34 @@ namespace Roulette
         private Timer _randomFieldTimer;
         private Color _fieldBackgroundColor;
         private string _fieldNubmer;
+        private ObservableCollection<int> _selectedFieldNumbers;
+        private ObservableCollection<int> _notSelectedFieldNumbers;
+        private int _lvNotSettedSelected;
+        private int lvSettedSelected;
+
+        public int LvSettedSelected
+        {
+            get { return _lvNotSettedSelected; }
+            set { SetField(ref lvSettedSelected, value, "LvSettedSelected"); }
+        }
+
+        public int LvNotSettedSelected
+        {
+            get { return _lvNotSettedSelected; }
+            set { SetField(ref _lvNotSettedSelected, value, "LvNotSettedSelected"); }
+        }
+
+        public ObservableCollection<int> NotSelectedFieldNumbers
+        {
+            get { return _notSelectedFieldNumbers; }
+            set { SetField(ref _notSelectedFieldNumbers, value, "NotSelectedFieldNumbers"); }
+        }
+
+        public ObservableCollection<int> SelectedFieldNumbers
+        {
+            get { return _selectedFieldNumbers; }
+            set { SetField(ref _selectedFieldNumbers, value, "SelectedFieldNumbers"); }
+        }
 
         public string FieldNumber
         {
@@ -113,6 +155,28 @@ namespace Roulette
         }
 
         public RelayCommand btnStartClickCommand { get; private set; }
+        public RelayCommand btnSetClickCommand { get; private set; }
+        public RelayCommand btnRemoveSetClickCommand { get; private set; }
+
+        public void btnRemoveSet_Click()
+        {
+            if (lvSettedSelected < 0) return;
+            NotSelectedFieldNumbers.Add(lvSettedSelected);
+            NotSelectedFieldNumbers = new ObservableCollection<int>(NotSelectedFieldNumbers.Sort());
+            SelectedFieldNumbers.RemoveWhere(o => o == lvSettedSelected);
+            SelectedFieldNumbers = new ObservableCollection<int>(SelectedFieldNumbers.Sort());
+            lvSettedSelected = -1;
+        }
+
+        public void btnSet_Click()
+        {
+            if (LvNotSettedSelected < 0) return;
+            SelectedFieldNumbers.Add(LvNotSettedSelected);
+            SelectedFieldNumbers = new ObservableCollection<int>(SelectedFieldNumbers.Sort());
+            NotSelectedFieldNumbers.RemoveWhere(o => o == LvNotSettedSelected);
+            NotSelectedFieldNumbers = new ObservableCollection<int>(NotSelectedFieldNumbers.Sort());
+            LvNotSettedSelected = -1;
+        }
 
         public void btnStart_Click()
         {

@@ -67,6 +67,7 @@
     <Compile Include="FieldTemplate.cs" />
     <Compile Include="FieldTemplateList.cs" />
     <Compile Include="FieldTemplateListExtensionMethods.cs" />
+    <Compile Include="ObservableIntCollectionExtensonMethods.cs" />
     <Compile Include="RelayCommands.cs" />
     <Compile Include="ViewModel.cs" />
     <Page Include="MainWindow.xaml">

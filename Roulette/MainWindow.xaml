@@ -36,10 +36,10 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Label Content="nicht gesetzte Felder" Foreground="White" FontWeight="ExtraBold" FontSize="20" HorizontalAlignment="Center"></Label>
-                    <ListBox Height="600" Width="400" ></ListBox>
+                    <ListBox Height="600" Width="400" ItemsSource="{Binding NotSelectedFieldNumbers}" SelectedItem="{Binding LvNotSettedSelected}"></ListBox>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button Background="Transparent" BorderThickness="0">
+                    <Button Background="Transparent" BorderThickness="0" Command="{Binding btnSetClickCommand}">
                         <Button.RenderTransform>
                             <RotateTransform/>
                         </Button.RenderTransform>
@@ -70,7 +70,7 @@
                         </Button.Style>
                         <TextBlock Text="►" Foreground="White" FontWeight="DemiBold" FontSize="200" x:Name="tbArrowRight"></TextBlock>
                     </Button>
-                    <Button Background="Transparent" BorderThickness="0">
+                    <Button Background="Transparent" BorderThickness="0" Command="{Binding btnRemoveSetClickCommand}">
                         <Button.RenderTransform>
                             <RotateTransform/>
                         </Button.RenderTransform>
@@ -102,9 +102,9 @@
                         <TextBlock Text="◄" Foreground="White" FontWeight="DemiBold" FontSize="200" x:Name="tbArrowLeft"></TextBlock>
                     </Button>
                 </StackPanel>
-                <StackPanel>
-                    <Label Content="gesetzte Felder" Foreground="White" FontWeight="ExtraBold" FontSize="20" HorizontalAlignment="Center"></Label>
-                    <ListBox Height="600" Width="400" ></ListBox>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="nicht gesetzte Felder" Foreground="White" FontWeight="ExtraBold" FontSize="20" HorizontalAlignment="Center"></Label>
+                    <ListBox Height="600" Width="400" ItemsSource="{Binding SelectedFieldNumbers}" SelectedItem="{Binding LvSettedSelected}"></ListBox>
                 </StackPanel>
             </StackPanel>
         </Grid>
