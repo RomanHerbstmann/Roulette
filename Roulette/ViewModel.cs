@@ -14,7 +14,7 @@ using System.Collections.ObjectModel;
 
 namespace Roulette
 {
-    public class MainWindowViewModel : INotifyPropertyChanged
+    public class ViewModel : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;
@@ -40,7 +40,7 @@ namespace Roulette
         }
         #endregion
 
-        public MainWindowViewModel()
+        public ViewModel()
         {
             PropertyChanged += OnPropertyChanged;
 
@@ -64,6 +64,18 @@ namespace Roulette
                 Number = 0,
                 Background = "green"
             };
+
+            #region login view model
+            btnCloseClickCommand = new RelayCommand(btnClose_Click);
+            btnClearClickCommand = new RelayCommand(btnClear_Click);
+            btnLoginClickCommand = new RelayCommand(btnLogin_Click);
+
+            _dbConnection = new DbConnection();
+
+            LoginCorrect = true;
+
+            _user = new LoggedInUser();
+            #endregion
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -182,5 +194,77 @@ namespace Roulette
         {
             GetRandomField();
         }
+
+        #region Login View Model
+        private LoggedInUser _user;
+        private string _username;
+        private string _password;
+        private DbConnection _dbConnection;
+        private bool _loginCorrect;
+
+        public LoggedInUser User
+        {
+            get { return _user; }
+            set { SetField(ref _user, value, "User"); }
+        }
+
+        public bool LoginCorrect
+        {
+            get { return _loginCorrect; }
+            set { SetField(ref _loginCorrect, value, "LoginCorrect"); }
+        }
+
+        public string Username
+        {
+            get { return _username; }
+            set { SetField(ref _username, value, "Username"); }
+        }
+
+        public string Password
+        {
+            get { return _password; }
+            set { SetField(ref _password, value, "Password"); }
+        }
+
+        public RelayCommand btnCloseClickCommand { get; private set; }
+        public RelayCommand btnClearClickCommand { get; private set; }
+        public RelayCommand btnLoginClickCommand { get; private set; }
+
+        public void btnClose_Click()
+        {
+            Application.Current.Shutdown();
+        }
+
+        public void btnClear_Click()
+        {
+            Username = null;
+            Password = null;
+        }
+
+        public void btnLogin_Click()
+        {
+            var result = _dbConnection.ExecuteSqlQuery("Select * From [User] Where [Username]='" + Username + "' and [Password]='" + Password + "'");
+            if (result.HasRows)
+            {
+                while (result.Read())
+                {
+                    User.UserId = result.GetInt32(0);
+                    User.Username = result.GetString(1);
+                    User.Password = result.GetString(2);
+                    User.Money = result.GetDecimal(3);
+                }
+                new MainWindow().Show();
+                LoginCorrect = true;
+                Username = null;
+                Password = null;
+            }
+            else
+            {
+                LoginCorrect = false;
+            }
+
+            _dbConnection.CloseConnection();
+        }
+        #endregion
     }
 }

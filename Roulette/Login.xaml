@@ -6,11 +6,13 @@
         xmlns:local="clr-namespace:Roulette"
         mc:Ignorable="d"
         Title="Login" 
-        Height="200" 
-        Width="400"
-        Background="#2d2d2d">
+        Height="230" 
+        Width="430"
+        Background="#2d2d2d"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen">
     <Window.DataContext>
-        <local:LoginViewModel/>
+        <local:ViewModel/>
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
@@ -21,9 +23,27 @@
             <ColumnDefinition Width="40*"/>
             <ColumnDefinition Width="60*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Margin="10">
-            <Label Height="25" Content="Benutzername:" Foreground="White" FontWeight="DemiBold" Margin="0,4,0,0"></Label>
-            <Label Height="25" Content="Passwort:" Foreground="White" FontWeight="DemiBold" Margin="0,4,0,0"></Label>
+        <StackPanel Grid.ColumnSpan="2">
+            <StackPanel Margin="10">
+                <Label Height="25" Content="Benutzername:" Foreground="White" FontWeight="DemiBold" Margin="0,4,0,0"></Label>
+                <Label Height="25" Content="Passwort:" Foreground="White" FontWeight="DemiBold" Margin="0,4,0,0"></Label>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center">
+                <Label Content="Benutzername oder Password Falsch bitte versuchen sie es erneut" Foreground="Red" FontWeight="DemiBold">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding LoginCorrect}" Value="False">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding LoginCorrect}" Value="true">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+            </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="10">
             <Border BorderThickness="1,1,1,0" BorderBrush="White" CornerRadius="5,5,5,5" Width="200" RenderTransformOrigin="0.5,0.5">
