@@ -14,9 +14,6 @@
         WindowStyle="None"
         WindowState="Maximized">
     <!--Endregion-->
-    <Window.DataContext>
-        <local:ViewModel/>
-    </Window.DataContext>
     <Grid>
         <!--Region RowDefinition-->
         <Grid.RowDefinitions>
@@ -27,17 +24,17 @@
         </Grid.RowDefinitions>
         <!--Endregion-->
         <!--Region User Information-->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="4" DataContext="{Binding User}">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,4,0,0">
             <Label Content="Benutzernummer:" Foreground="White" FontWeight="DemiBold" FontSize="30"></Label>
-            <Label Content="{Binding UserId}" Foreground="White" FontWeight="DemiBold" FontSize="30"></Label>
+            <Label Content="{Binding LoggedInUserID}" Foreground="White" FontWeight="DemiBold" FontSize="30"></Label>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="4" DataContext="{Binding User}">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="4">
             <Label Content="Guthaben" Foreground="White" FontWeight="DemiBold" FontSize="30"></Label>
-            <Label Content="{Binding Money}" Foreground="White" FontWeight="DemiBold" FontSize="30"></Label>
+            <Label Content="{Binding LoggedInUserMoney}" Foreground="White" FontWeight="DemiBold" FontSize="30" ContentStringFormat="{}{0} €"></Label>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="4" DataContext="{Binding User}">
-            <Label Content="Benutzername" Foreground="White" FontWeight="DemiBold" FontSize="30"></Label>
-            <Label Content="{Binding Username}" Foreground="White" FontWeight="DemiBold" FontSize="30"></Label>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,4,10,0">
+            <Label Content="Benutzername:" Foreground="White" FontWeight="DemiBold" FontSize="30"></Label>
+            <Label Content="{Binding LoggedInUsername}" Foreground="White" FontWeight="DemiBold" FontSize="30"></Label>
         </StackPanel>
         <!--Endregion-->
         <!--Region btnStart-->
@@ -45,7 +42,7 @@
             <Button Height="50" Width="200" Content="Start" Background="Transparent" Foreground="White" FontSize="30" FontWeight="DemiBold" Command="{Binding btnStartClickCommand}" BorderThickness="0"></Button>
         </StackPanel>
         <!--Endregion-->
-        <!--Region User selection-->
+       <!--Region User selection-->
         <Grid Grid.Row="2">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -53,7 +50,7 @@
                     <ListBox Height="600" Width="400" ItemsSource="{Binding NotSelectedFieldNumbers}" SelectedItem="{Binding LvNotSettedSelected}"></ListBox>
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button Background="Transparent" BorderThickness="0" Command="{Binding btnSetClickCommand}">
+                    <Button Background="Transparent" BorderThickness="0" Command="{Binding btnSetClickCommand}" RenderTransformOrigin="0.5,0.5">
                         <Button.RenderTransform>
                             <RotateTransform/>
                         </Button.RenderTransform>
@@ -84,7 +81,7 @@
                         </Button.Style>
                         <TextBlock Text="►" Foreground="White" FontWeight="DemiBold" FontSize="200" x:Name="tbArrowRight"></TextBlock>
                     </Button>
-                    <Button Background="Transparent" BorderThickness="0" Command="{Binding btnRemoveSetClickCommand}">
+                    <Button Background="Transparent" BorderThickness="0" Command="{Binding btnRemoveSetClickCommand}" RenderTransformOrigin="0.5,0.5">
                         <Button.RenderTransform>
                             <RotateTransform/>
                         </Button.RenderTransform>

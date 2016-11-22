@@ -68,13 +68,18 @@
             </Border>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-            <Border BorderBrush="White" BorderThickness="1" CornerRadius="5" Padding="4" Margin="5">
+            <Border BorderBrush="White" BorderThickness="1" CornerRadius="5" Padding="4" Margin="5" Height="40">
                 <Button Content="Login" Background="Transparent" Foreground="White" FontWeight="DemiBold" FontSize="20" BorderThickness="0" Command="{Binding btnLoginClickCommand}"></Button>
             </Border>
-            <Border BorderBrush="White" BorderThickness="1" CornerRadius="5" Padding="4" Margin="5">
-                <Button Content="Zurücksetzen" Background="Transparent" Foreground="White" FontWeight="DemiBold" FontSize="20" BorderThickness="0" Command="{Binding btnClearClickCommand}"></Button>
-            </Border>
-            <Border BorderBrush="White" BorderThickness="1" CornerRadius="5" Padding="4" Margin="5">
+            <StackPanel>
+                <Border BorderBrush="White" BorderThickness="1" CornerRadius="5" Padding="4" Margin="5">
+                    <Button Content="Zurücksetzen" Background="Transparent" Foreground="White" FontWeight="DemiBold" FontSize="20" BorderThickness="0" Command="{Binding btnClearClickCommand}"></Button>
+                </Border>
+                <Border BorderBrush="White" BorderThickness="1" CornerRadius="5" Padding="4" Margin="5">
+                    <Button Content="Neuer User" Background="Transparent" Foreground="White" FontWeight="DemiBold" FontSize="20" BorderThickness="0" Command="{Binding btnNewUserClickCommand}"></Button>
+                </Border>
+            </StackPanel>
+            <Border BorderBrush="White" BorderThickness="1" CornerRadius="5" Padding="4" Margin="5" Height="40">
                 <Button Content="Schließen" Background="Transparent" Foreground="White" FontWeight="DemiBold" FontSize="20" BorderThickness="0" Command="{Binding btnCloseClickCommand}"></Button>
             </Border>
         </StackPanel>

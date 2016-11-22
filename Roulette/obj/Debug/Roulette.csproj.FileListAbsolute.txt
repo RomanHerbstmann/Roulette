@@ -40,7 +40,6 @@ C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\
 C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\bin\Debug\Z.ExtensionMethods.dll
 C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\bin\Debug\Z.ExtensionMethods.pdb
-C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\obj\Debug\Roulette.csprojResolveAssemblyReference.cache
 C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\obj\Debug\MainWindow.g.cs
 C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\obj\Debug\App.g.cs
 C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\obj\Debug\GeneratedInternalTypeHelper.g.cs
@@ -52,3 +51,17 @@ C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\
 C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\obj\Debug\Roulette.csproj.GenerateResource.Cache
 C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\obj\Debug\Login.g.cs
 C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\obj\Debug\Login.baml
+C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\obj\Debug\NewUser.g.cs
+C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\obj\Debug\NewUser.baml
+C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\obj\Debug\Roulette.csprojResolveAssemblyReference.cache
+C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\bin\Debug\de\System.Windows.Interactivity.resources.dll
+C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\bin\Debug\en\System.Windows.Interactivity.resources.dll
+C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\bin\Debug\es\System.Windows.Interactivity.resources.dll
+C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\bin\Debug\it\System.Windows.Interactivity.resources.dll
+C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+C:\Users\Roman Herbstmann\Desktop\C# Programmieren Schule\Roulette_git\Roulette\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
