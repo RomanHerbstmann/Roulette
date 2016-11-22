@@ -11,6 +11,7 @@ using System.Timers;
 using System.Windows.Media;
 using System.Windows;
 using System.Collections.ObjectModel;
+using System.Security.Cryptography;
 
 namespace Roulette
 {
@@ -69,12 +70,20 @@ namespace Roulette
             btnCloseClickCommand = new RelayCommand(btnClose_Click);
             btnClearClickCommand = new RelayCommand(btnClear_Click);
             btnLoginClickCommand = new RelayCommand(btnLogin_Click);
+            btnNewUserClickCommand = new RelayCommand(btnNewUser_Click);
 
             _dbConnection = new DbConnection();
 
             LoginCorrect = true;
 
-            _user = new LoggedInUser();
+            _user = new ObservableCollection<LoggedInUser>();
+            #endregion
+            #region New User
+
+            btnCreateNewUserClickCommand = new RelayCommand(btnCreateNewUser_Click);
+            btnCancelClickCommand = new RelayCommand(btnCancel_Click);
+            newUserLoadedCommand = new RelayCommand(newUser_Loaded); 
+
             #endregion
         }
 
@@ -87,6 +96,11 @@ namespace Roulette
                     var color = (Color)ColorConverter.ConvertFromString(RandomEntry.Background);
                     FieldBackgroundColor = color;
                     FieldNumber = RandomEntry.Number.ToString();
+                    return;
+                case "User":
+                    LoggedInUserID = User.Select(o => o.UserId).FirstOrDefault();
+                    LoggedInUsername = User.Select(o => o.Username).FirstOrDefault();
+                    LoggedInUserMoney = User.Select(o => o.Money).FirstOrDefault();
                     return;
             }
         }
@@ -107,6 +121,48 @@ namespace Roulette
         private ObservableCollection<int> _notSelectedFieldNumbers;
         private int _lvNotSettedSelected;
         private int lvSettedSelected;
+        private string _loggedInUsername;
+        private int _loggedInUserId;
+        private decimal _loggedInUserMoney;
+        private string _newUserUsername;
+        private string _newUserPassword;
+        private int _newUserId;
+
+        public string NewUserUsername
+        {
+            get { return _newUserUsername; }
+            set { SetField(ref _newUserUsername, value, "NewUserUsername"); }
+        }
+
+        public string NewUserPassword
+        {
+            get { return _newUserPassword; }
+            set { SetField(ref _newUserPassword, value, "NewUserPassword"); }
+        }
+
+        public int NewUserId
+        {
+            get { return _newUserId; }
+            set { SetField(ref _newUserId, value, "NewUserId"); }
+        }
+
+        public string LoggedInUsername
+        {
+            get { return _loggedInUsername; }
+            set { SetField(ref _loggedInUsername, value, "LoggedInUsername"); }
+        }
+
+        public int LoggedInUserID
+        {
+            get { return _loggedInUserId; }
+            set { SetField(ref _loggedInUserId, value, "LoggedInUserID"); }
+        }
+
+        public decimal LoggedInUserMoney
+        {
+            get { return _loggedInUserMoney; }
+            set { SetField(ref _loggedInUserMoney, value, "LoggedInUserMoney"); }
+        }
 
         public int LvSettedSelected
         {
@@ -166,6 +222,39 @@ namespace Roulette
             _randomFieldTimer.Start();
         }
 
+        public int GenerateNewUserID()
+        {
+            var generator = new Random();
+            var sb = new StringBuilder();
+
+            sb.Append(generator.Next(1, 10).ToString());
+            sb.Append(generator.Next(1, 10).ToString());
+            sb.Append(generator.Next(1, 10).ToString());
+            sb.Append(generator.Next(1, 10).ToString());
+            sb.Append(generator.Next(1, 10).ToString());
+            sb.Append(generator.Next(1, 10).ToString());
+
+            var generatedID = Convert.ToInt32(sb.ToString());
+
+            var idExists = _dbConnection.ExecuteSqlQuery("Select * From [User] Where [ID] = " + generatedID);
+
+            while(idExists.HasRows)
+            {
+                sb.Append(generator.Next(1, 10).ToString());
+                sb.Append(generator.Next(1, 10).ToString());
+                sb.Append(generator.Next(1, 10).ToString());
+                sb.Append(generator.Next(1, 10).ToString());
+                sb.Append(generator.Next(1, 10).ToString());
+                sb.Append(generator.Next(1, 10).ToString());
+
+                generatedID = Convert.ToInt32(sb.ToString());
+
+                idExists = _dbConnection.ExecuteSqlQuery("Select * From [User] Where [ID] = '" + generatedID + "'");
+            }
+
+            return generatedID;
+        }
+
         public RelayCommand btnStartClickCommand { get; private set; }
         public RelayCommand btnSetClickCommand { get; private set; }
         public RelayCommand btnRemoveSetClickCommand { get; private set; }
@@ -196,13 +285,13 @@ namespace Roulette
         }
 
         #region Login View Model
-        private LoggedInUser _user;
+        private ObservableCollection<LoggedInUser> _user;
         private string _username;
         private string _password;
         private DbConnection _dbConnection;
         private bool _loginCorrect;
 
-        public LoggedInUser User
+        public ObservableCollection<LoggedInUser> User
         {
             get { return _user; }
             set { SetField(ref _user, value, "User"); }
@@ -229,6 +318,7 @@ namespace Roulette
         public RelayCommand btnCloseClickCommand { get; private set; }
         public RelayCommand btnClearClickCommand { get; private set; }
         public RelayCommand btnLoginClickCommand { get; private set; }
+        public RelayCommand btnNewUserClickCommand { get; private set; }
 
         public void btnClose_Click()
         {
@@ -243,17 +333,24 @@ namespace Roulette
 
         public void btnLogin_Click()
         {
-            var result = _dbConnection.ExecuteSqlQuery("Select * From [User] Where [Username]='" + Username + "' and [Password]='" + Password + "'");
+            var md5Generator = new MD5Generator();
+            var cryptetKeyword = md5Generator.GenerateMd5(Password);
+            var result = _dbConnection.ExecuteSqlQuery("Select * From [User] Where [Username]='" + Username + "' and [Password]='" + cryptetKeyword + "'");
             if (result.HasRows)
             {
                 while (result.Read())
                 {
-                    User.UserId = result.GetInt32(0);
-                    User.Username = result.GetString(1);
-                    User.Password = result.GetString(2);
-                    User.Money = result.GetDecimal(3);
+                    var selectedUser = new LoggedInUser
+                    {
+                        UserId = result.GetInt32(0),
+                        Username = result.GetString(1),
+                        Password = result.GetString(2),
+                        Money = result.GetDecimal(3)
+                    };
+                    User.Add(selectedUser);
+                    OnPropertyChanged("User");
                 }
-                new MainWindow().Show();
+                new MainWindow(this).Show();
                 LoginCorrect = true;
                 Username = null;
                 Password = null;
@@ -265,6 +362,61 @@ namespace Roulette
 
             _dbConnection.CloseConnection();
         }
+
+        public void btnNewUser_Click()
+        {
+            new NewUser(this).Show();
+        }
+        #endregion
+
+        #region NewUser
+
+        public RelayCommand btnCreateNewUserClickCommand { get; private set; }
+        public RelayCommand btnCancelClickCommand { get; private set; }
+        public RelayCommand newUserLoadedCommand { get; private set; }
+
+        public void newUser_Loaded()
+        {
+            NewUserId = GenerateNewUserID();
+        }
+
+        public void btnCancel_Click()
+        {
+            Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
+        }
+
+        public void btnCreateNewUser_Click()
+        {
+            if (string.IsNullOrEmpty(NewUserPassword) || string.IsNullOrEmpty(NewUserUsername))
+            {
+                MessageBox.Show("Bitte fülle zuerst die Pflichtfelder (*) aus!!");
+                return;
+            }
+            var hashGenerator = new MD5Generator();
+            var cryptedPassword = hashGenerator.GenerateMd5(NewUserPassword);
+
+            var userExits = _dbConnection.ExecuteSqlQuery("Select * From [User] Where [Username]='" + NewUserUsername + "' and [Password]='" + cryptedPassword + "'");
+            if(userExits.HasRows)
+            {
+                _dbConnection.CloseConnection();
+                MessageBox.Show("Der Benutzer existiert bereits");
+                return;
+            }
+            var cmd = "INSERT INTO [User] ([ID], [Username], [Password]) VALUES('" + NewUserId + "', '" + NewUserUsername + "', '" + cryptedPassword + "');";
+            var saveUser = _dbConnection.ExecuteSqlNonQuery(cmd);
+            MessageBox.Show("Neuer Benutzer erfolgreich erstellt");
+            NewUserUsername = null;
+            NewUserPassword = null;
+            NewUserId = GenerateNewUserID();
+            
+
+            _dbConnection.CloseConnection();
+
+            Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
+        }
+
         #endregion
     }
 }
