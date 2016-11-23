@@ -49,23 +49,30 @@ namespace Roulette
             btnRemoveSetClickCommand = new RelayCommand(btnRemoveSet_Click);
             btnSetClickCommand = new RelayCommand(btnSet_Click);
             btnStartClickCommand = new RelayCommand(btnStart_Click);
+            btnMoreMoneyClickCommand = new RelayCommand(btnMoreMoney_Click);
+            btnLessMoneyClickCommand = new RelayCommand(btnLessMoney_Click);
+            btnJustNumbersClickCommand = new RelayCommand(btnJustNumbers_Click);
+            btnOddNumbersClickCommand = new RelayCommand(btnOddNumers_Click);
+            btnBlackNumbersClickCommand = new RelayCommand(btnBlackNumbers_Click);
+            btnRedNumbersClickCommand = new RelayCommand(btnRedNumbers_Click);
 
             _fieldTemplateJsonPath = ConfigurationManager.AppSettings["Field.Template.Json.Path"];
 
             _fieldTemplateList = JsonConvert.DeserializeObject<FieldTemplateList>(File.ReadAllText(_fieldTemplateJsonPath));
 
-            _randomFieldTimer = new Timer();
-            _randomFieldTimer.Elapsed += _randomFieldTimer_Elapsed;
-
             SelectedFieldNumbers = new ObservableCollection<int>();
 
             NotSelectedFieldNumbers = new ObservableCollection<int>(_fieldTemplateList.Select(o => o.Number).ToList());
 
-            RandomEntry = new FieldTemplate
+            RandomField = new FieldTemplate
             {
                 Number = 0,
                 Background = "green"
             };
+
+            UserCanBet = true;
+
+            SettedUserMoney = 1;
 
             #region login view model
             btnCloseClickCommand = new RelayCommand(btnClose_Click);
@@ -83,7 +90,7 @@ namespace Roulette
 
             btnCreateNewUserClickCommand = new RelayCommand(btnCreateNewUser_Click);
             btnCancelClickCommand = new RelayCommand(btnCancel_Click);
-            newUserLoadedCommand = new RelayCommand(newUser_Loaded); 
+            newUserLoadedCommand = new RelayCommand(newUser_Loaded);
 
             #endregion
         }
@@ -92,30 +99,36 @@ namespace Roulette
         {
             switch (e.PropertyName)
             {
-                case "RandomEntry":
-                    if (RandomEntry == null) return;
-                    var color = (Color)ColorConverter.ConvertFromString(RandomEntry.Background);
+                case "RandomField":
+                    if (RandomField == null) return;
+                    var color = (Color)ColorConverter.ConvertFromString(RandomField.Background);
                     FieldBackgroundColor = color;
-                    FieldNumber = RandomEntry.Number.ToString();
+                    FieldNumber = RandomField.Number.ToString();
                     return;
                 case "User":
                     LoggedInUserID = User.Select(o => o.UserId).FirstOrDefault();
                     LoggedInUsername = User.Select(o => o.Username).FirstOrDefault();
                     LoggedInUserMoney = User.Select(o => o.Money).FirstOrDefault();
                     return;
-            }
-        }
+                case "WinnerField":
+                    var userHasWon = SelectedFieldNumbers.Any(o => o == WinnerField.Number);
+                    if (userHasWon)
+                    {
+                        UserWins = true;
+                        if (WinnerField.Number == 0)
+                            UpdateWinningUser(10);
 
-        private void _randomFieldTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            _randomFieldTimer.Stop();
-            GetRandomField();
+                        UpdateWinningUser(2);
+                    }
+                    else
+                        UserWins = false;
+                    return;
+            }
         }
 
         private string _fieldTemplateJsonPath;
         private FieldTemplateList _fieldTemplateList;
-        private FieldTemplate _randomEntry;
-        private Timer _randomFieldTimer;
+        private FieldTemplate _randomField;
         private Color _fieldBackgroundColor;
         private string _fieldNubmer;
         private ObservableCollection<int> _selectedFieldNumbers;
@@ -128,6 +141,34 @@ namespace Roulette
         private string _newUserUsername;
         private string _newUserPassword;
         private int _newUserId;
+        private bool _userCanBet;
+        private FieldTemplate _winnerField;
+        private bool _userWins;
+        private int _settedUserMoney;
+
+        public int SettedUserMoney
+        {
+            get { return _settedUserMoney; }
+            set { SetField(ref _settedUserMoney, value, "SettedUserMoney"); }
+        }
+
+        public bool UserWins
+        {
+            get { return _userWins; }
+            set { SetField(ref _userWins, value, "UserWins"); }
+        }
+
+        public FieldTemplate WinnerField
+        {
+            get { return _winnerField; }
+            set { SetField(ref _winnerField, value, "WinnerField"); }
+        }
+
+        public bool UserCanBet
+        {
+            get { return _userCanBet; }
+            set { SetField(ref _userCanBet, value, "UserCanBet"); }
+        }
 
         public string NewUserUsername
         {
@@ -201,26 +242,16 @@ namespace Roulette
             set { SetField(ref _fieldBackgroundColor, value, "FieldBackgroundColor"); }
         }
 
-        public FieldTemplate RandomEntry
+        public FieldTemplate RandomField
         {
-            get { return _randomEntry; }
-            set { SetField(ref _randomEntry, value, "RandomEntry"); }
+            get { return _randomField; }
+            set { SetField(ref _randomField, value, "RandomField"); }
         }
 
         public void GetRandomField()
         {
-            RandomEntry = null;
-            RandomEntry = _fieldTemplateList.GetRandomEntry(0, _fieldTemplateList.Count);
-        }
-
-        public void StartRandomFieldTimer()
-        {
-            var generator = new Random();
-            _randomFieldTimer = new Timer
-            {
-                Interval = generator.Next(500, 2001)
-            };
-            _randomFieldTimer.Start();
+            RandomField = null;
+            RandomField = _fieldTemplateList.GetRandomEntry(0, _fieldTemplateList.Count);
         }
 
         public int GenerateNewUserID()
@@ -239,7 +270,7 @@ namespace Roulette
 
             var idExists = _dbConnection.ExecuteSqlQuery("Select * From [User] Where [ID] = " + generatedID);
 
-            while(idExists.HasRows)
+            while (idExists.HasRows)
             {
                 sb.Append(generator.Next(1, 10).ToString());
                 sb.Append(generator.Next(1, 10).ToString());
@@ -256,9 +287,70 @@ namespace Roulette
             return generatedID;
         }
 
+        public void UpdateWinningUser(int winningMultiplikator)
+        {
+            LoggedInUserMoney += SettedUserMoney * winningMultiplikator;
+            var reader = _dbConnection.ExecuteSqlNonQuery("Update [User] Set [Money]='" + LoggedInUserMoney + "' Where [Username]='" + LoggedInUsername + "'");
+        }
+
         public RelayCommand btnStartClickCommand { get; private set; }
         public RelayCommand btnSetClickCommand { get; private set; }
         public RelayCommand btnRemoveSetClickCommand { get; private set; }
+        public RelayCommand btnMoreMoneyClickCommand { get; private set; }
+        public RelayCommand btnLessMoneyClickCommand { get; private set; }
+        public RelayCommand btnJustNumbersClickCommand { get; private set; }
+        public RelayCommand btnOddNumbersClickCommand { get; private set; }
+        public RelayCommand btnBlackNumbersClickCommand { get; private set; }
+        public RelayCommand btnRedNumbersClickCommand { get; private set; }
+
+        public void btnJustNumbers_Click()
+        {
+
+        }
+
+        public void btnOddNumers_Click()
+        {
+
+        }
+
+        public void btnBlackNumbers_Click()
+        {
+
+        }
+
+        public void btnRedNumbers_Click()
+        {
+            var templist = new FieldTemplateList();
+            templist = _fieldTemplateList;
+            foreach (var item in SelectedFieldNumbers)
+            {
+                templist.RemoveWhere(o => o.Number == item);
+            }
+            templist.RemoveWhere(o => o.Background != "red");
+
+            SelectedFieldNumbers = new ObservableCollection<int>(templist.Select(o => o.Number).ToList());
+
+            foreach (var item in SelectedFieldNumbers)
+            {
+                NotSelectedFieldNumbers.RemoveWhere(o => o == item);
+            }
+        }
+
+        public void btnMoreMoney_Click()
+        {
+            if (SettedUserMoney > LoggedInUserMoney) return;
+            SettedUserMoney++;
+            SelectedFieldNumbers.Clear();
+            NotSelectedFieldNumbers = new ObservableCollection<int>(_fieldTemplateList.Select(o => o.Number).ToList());
+        }
+
+        public void btnLessMoney_Click()
+        {
+            if (SettedUserMoney < 1) return;
+            SettedUserMoney--;
+            SelectedFieldNumbers.Clear();
+            NotSelectedFieldNumbers = new ObservableCollection<int>(_fieldTemplateList.Select(o => o.Number).ToList());
+        }
 
         public void btnRemoveSet_Click()
         {
@@ -282,7 +374,45 @@ namespace Roulette
 
         public void btnStart_Click()
         {
-            GetRandomField();
+            UserCanBet = false;
+            LoggedInUserMoney -= SettedUserMoney;
+            _dbConnection.ExecuteSqlNonQuery("Update [User] Set [Money]='" + LoggedInUserMoney + "' Where [Username]='" + LoggedInUsername + "';");
+            FieldGenerator();
+        }
+
+        public async void FieldGenerator()
+        {
+            var generator = new Random();
+            var roundCount = generator.Next(10, 51);
+            for (int i = 0; i <= roundCount; i++)
+            {
+                double roundRelation = ((roundCount - i) / 100);
+
+                if (roundRelation >= 0.9)
+                    await Task.Delay(10);
+                else if (roundRelation >= 0.8)
+                    await Task.Delay(20);
+                else if (roundRelation >= 0.7)
+                    await Task.Delay(30);
+                else if (roundRelation >= 0.6)
+                    await Task.Delay(40);
+                else if (roundRelation >= 0.5)
+                    await Task.Delay(50);
+                else if (roundRelation >= 0.4)
+                    await Task.Delay(60);
+                else if (roundRelation >= 0.3)
+                    await Task.Delay(70);
+                else if (roundRelation >= 0.2)
+                    await Task.Delay(80);
+                else if (roundRelation >= 0.1)
+                    await Task.Delay(90);
+                else if (roundRelation < 0.1)
+                    await Task.Delay(100);
+
+                GetRandomField();
+            }
+            UserCanBet = true;
+            WinnerField = RandomField;
         }
 
         #region Login View Model
@@ -397,20 +527,20 @@ namespace Roulette
             var hashGenerator = new MD5Generator();
             var cryptedPassword = hashGenerator.GenerateMd5(NewUserPassword);
 
-            var userExits = _dbConnection.ExecuteSqlQuery("Select * From [User] Where [Username]='" + NewUserUsername + "' and [Password]='" + cryptedPassword + "'");
-            if(userExits.HasRows)
+            var userExits = _dbConnection.ExecuteSqlQuery("Select * From [User] Where [Username]='" + NewUserUsername + "'");
+            if (userExits.HasRows)
             {
                 _dbConnection.CloseConnection();
                 MessageBox.Show("Der Benutzer existiert bereits");
                 return;
             }
-            var cmd = "INSERT INTO [User] ([ID], [Username], [Password]) VALUES('" + NewUserId + "', '" + NewUserUsername + "', '" + cryptedPassword + "');";
+            var cmd = "INSERT INTO [User] ([ID], [Username], [Password], [Money]) VALUES('" + NewUserId + "', '" + NewUserUsername + "', '" + cryptedPassword + "', '100');";
             var saveUser = _dbConnection.ExecuteSqlNonQuery(cmd);
             MessageBox.Show("Neuer Benutzer erfolgreich erstellt");
             NewUserUsername = null;
             NewUserPassword = null;
             NewUserId = GenerateNewUserID();
-            
+
 
             _dbConnection.CloseConnection();
 
