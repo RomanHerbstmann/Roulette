@@ -65,7 +65,118 @@
         </StackPanel>
         <!--Endregion-->
         <!--Region User selection-->
-        <Grid Grid.Row="2">
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <Border BorderBrush="White" BorderThickness="1" Width="200" Height="100" CornerRadius="5" Margin="5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60*"/>
+                            <RowDefinition Height="40*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Border BorderBrush="White" BorderThickness="1" CornerRadius="5">
+                                <Button Content="▲" Background="Transparent" Foreground="White" FontSize="30" Command="{Binding btnLowNumbersMoreMoneyCommand}"></Button>
+                            </Border>
+                            <Border BorderBrush="White" BorderThickness="1" CornerRadius="5">
+                                <Label Content="{Binding LowNumbersMoneySet}" Background="Transparent" Foreground="White" FontSize="30"></Label>
+                            </Border>
+                            <Border BorderBrush="White" BorderThickness="1" CornerRadius="5">
+                                <Button Content="▼" Background="Transparent" Foreground="White" FontSize="30" Command="{Binding btnLowNumbersLessMoneyCommand}"></Button>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Niedrig 1-18" Foreground="White" FontWeight="DemiBold" FontSize="20"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Border BorderBrush="White" BorderThickness="1" Width="200" Height="100" CornerRadius="5" Margin="5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60*"/>
+                            <RowDefinition Height="40*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Border BorderBrush="White" BorderThickness="1" CornerRadius="5">
+                                <Button Content="▲" Background="Transparent" Foreground="White" FontSize="30" Command="{Binding btnOddNumbersMoreMoneyClickCommand}"></Button>
+                            </Border>
+                            <Border BorderBrush="White" BorderThickness="1" CornerRadius="5">
+                                <Label Content="{Binding OddNumbersMoneySet}" Background="Transparent" Foreground="White" FontSize="30"></Label>
+                            </Border>
+                            <Border BorderBrush="White" BorderThickness="1" CornerRadius="5">
+                                <Button Content="▼" Background="Transparent" Foreground="White" FontSize="30" Command="{Binding btnOddNumbersLessMoneyClickCommand}"></Button>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Ungerade" Foreground="White" FontWeight="DemiBold" FontSize="20"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Border BorderBrush="White" BorderThickness="1" Width="200" Height="100" CornerRadius="5" Margin="5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60*"/>
+                            <RowDefinition Height="40*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Border BorderBrush="White" BorderThickness="1" CornerRadius="5">
+                                <Button Content="▲" Background="Transparent" Foreground="White" FontSize="30" Command="{Binding btnAllRedNumbersMoreMoneyCommand}"></Button>
+                            </Border>
+                            <Border BorderBrush="White" BorderThickness="1" CornerRadius="5">
+                                <Label Content="{Binding AllRedNumbersMoneySet}" Background="Transparent" Foreground="White" FontSize="30"></Label>
+                            </Border>
+                            <Border BorderBrush="White" BorderThickness="1" CornerRadius="5">
+                                <Button Content="▼" Background="Transparent" Foreground="White" FontSize="30" Command="{Binding btnAllRedNumbersLessMoneyCommand}"></Button>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Rot" Foreground="White" FontWeight="DemiBold" FontSize="20"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="-50,50,0,0">
+                <Border BorderBrush="White" BorderThickness="1" Width="200" Height="100" CornerRadius="5" Margin="5" RenderTransformOrigin="0.5,0.5" Background="Red">
+                    <Border.RenderTransform>
+                        <RotateTransform Angle="-90"/>
+                    </Border.RenderTransform>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60*"/>
+                            <RowDefinition Height="40*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Border BorderBrush="White" BorderThickness="1" CornerRadius="5">
+                                <Button Background="Transparent" Foreground="White" FontSize="30" Command="{Binding btn3MoreMoneyClickCommand}">
+                                    <TextBlock Text="▲" RenderTransformOrigin="0.5,0.5">
+                                        <TextBlock.RenderTransform>
+                                            <RotateTransform Angle="90"/>
+                                        </TextBlock.RenderTransform>
+                                    </TextBlock>
+                                </Button>
+                            </Border>
+                            <Border BorderBrush="White" BorderThickness="1" CornerRadius="5">
+                                <Label Content="{Binding Number3MoneySet}" Background="Transparent" Foreground="White" FontSize="30"></Label>
+                            </Border>
+                            <Border BorderBrush="White" BorderThickness="1" CornerRadius="5">
+                                <Button Background="Transparent" Foreground="White" FontSize="30" Command="{Binding btn3LessMoneyClickCommand}">
+                                    <TextBlock Text="▼" RenderTransformOrigin="0.5,0.5">
+                                        <TextBlock.RenderTransform>
+                                            <RotateTransform Angle="90"/>
+                                        </TextBlock.RenderTransform>
+                                    </TextBlock>
+                                </Button>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="3" Foreground="White" FontWeight="DemiBold" FontSize="20" RenderTransformOrigin="0.5,0.5"></TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+        <!--Endregion-->
+        <!--Region old User selection-->
+        <!--<Grid Grid.Row="2">
             <StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel VerticalAlignment="Center" Margin="10">
@@ -168,7 +279,7 @@
                         </Button>
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Label Content="nicht gesetzte Felder" Foreground="White" FontWeight="ExtraBold" FontSize="20" HorizontalAlignment="Center"></Label>
+                        <Label Content="gesetzte Felder" Foreground="White" FontWeight="ExtraBold" FontSize="20" HorizontalAlignment="Center"></Label>
                         <ListBox Height="600" Width="400" ItemsSource="{Binding SelectedFieldNumbers}" SelectedItem="{Binding LvSettedSelected}"></ListBox>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Center" Margin="10">
@@ -181,7 +292,7 @@
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-        </Grid>
+        </Grid>-->
         <!--Endregion-->
         <!--Region wining number-->
         <StackPanel Grid.Row="3"  HorizontalAlignment="Center" VerticalAlignment="Center" Height="180" Width="180">

@@ -13,6 +13,7 @@ using System.Windows;
 using System.Collections.ObjectModel;
 using System.Security.Cryptography;
 using System.Diagnostics;
+using System.Data.OleDb;
 
 namespace Roulette
 {
@@ -51,10 +52,17 @@ namespace Roulette
             btnStartClickCommand = new RelayCommand(btnStart_Click);
             btnMoreMoneyClickCommand = new RelayCommand(btnMoreMoney_Click);
             btnLessMoneyClickCommand = new RelayCommand(btnLessMoney_Click);
-            btnJustNumbersClickCommand = new RelayCommand(btnJustNumbers_Click);
-            btnOddNumbersClickCommand = new RelayCommand(btnOddNumers_Click);
+            btnJustNumbersMoreMoneyClickCommand = new RelayCommand(btnJustNumbers_Click);
+            btnOddNumbersMoreMoneyClickCommand = new RelayCommand(btnOddNumersMoreMoney_Click);
+            btnOddNumbersLessMoneyClickCommand = new RelayCommand(btnOddNumbersLessMoney_Click);
             btnBlackNumbersClickCommand = new RelayCommand(btnBlackNumbers_Click);
             btnRedNumbersClickCommand = new RelayCommand(btnRedNumbers_Click);
+            btnLowNumbersLessMoneyCommand = new RelayCommand(btnLowNumbersLessMoney_Click);
+            btnLowNumbersMoreMoneyCommand = new RelayCommand(btnLowNumbersMoreMoney_Click);
+            btnAllRedNumbersMoreMoneyCommand = new RelayCommand(btnAllRedNumbersMoreMoney_Click);
+            btnAllRedNumbersLessMoneyCommand = new RelayCommand(btnAllRedNumbersLessMoney_Click);
+            btn3MoreMoneyClickCommand = new RelayCommand(btn3MoreMoney_Click);
+            btn3LessMoneyClickCommand = new RelayCommand(btn3LessMoney_Click);
 
             _fieldTemplateJsonPath = ConfigurationManager.AppSettings["Field.Template.Json.Path"];
 
@@ -73,6 +81,8 @@ namespace Roulette
             UserCanBet = true;
 
             SettedUserMoney = 1;
+
+            UserMoneyRange = 1;
 
             #region login view model
             btnCloseClickCommand = new RelayCommand(btnClose_Click);
@@ -123,6 +133,14 @@ namespace Roulette
                     else
                         UserWins = false;
                     return;
+                case "LoggedInUserMoney":
+                    var connection = new OleDbConnection(@"Provider = Microsoft.Jet.OleDb.4.0; Data Source = " + ConfigurationManager.AppSettings["Database.Path"]);
+                    connection.Open();
+                    var cmd = connection.CreateCommand();
+                    cmd.CommandText = "Update [User] Set [Money]='" + LoggedInUserMoney + "' Where [ID]=" + LoggedInUserID;
+                    var reader = cmd.ExecuteNonQuery();
+                    connection.Close();
+                    return;
             }
         }
 
@@ -145,6 +163,48 @@ namespace Roulette
         private FieldTemplate _winnerField;
         private bool _userWins;
         private int _settedUserMoney;
+        private int _lowNumbersMoneySet;
+        private int _userMoneyRange;
+        private int _userCompleteSettedMoney;
+        private int _oddNumbersMoneySet;
+        private int _allRedNumbersMoneySet;
+        private int _number3MoneySet;
+
+        public int Number3MoneySet
+        {
+            get { return _number3MoneySet; }
+            set { SetField(ref _number3MoneySet, value, "Number3MoneySet"); }
+        }
+
+        public int AllRedNumbersMoneySet
+        {
+            get { return _allRedNumbersMoneySet; }
+            set { SetField(ref _allRedNumbersMoneySet, value, "AllRedNumbersMoneySet"); }
+        }
+
+        public int OddNumbersMoneySet
+        {
+            get { return _oddNumbersMoneySet; }
+            set { SetField(ref _oddNumbersMoneySet, value, "OddNumbersMoneySet"); }
+        }
+
+        public int UserCompleteSettedMoney
+        {
+            get { return _userCompleteSettedMoney; }
+            set { SetField(ref _userCompleteSettedMoney, value, "UserCompleteSettedMoney"); }
+        }
+
+        public int UserMoneyRange
+        {
+            get { return _userMoneyRange; }
+            set { SetField(ref _userMoneyRange, value, "UserMoneyRange"); }
+        }
+
+        public int LowNumbersMoneySet
+        {
+            get { return _lowNumbersMoneySet; }
+            set { SetField(ref _lowNumbersMoneySet, value, "LowNumbersMoneySet"); }
+        }
 
         public int SettedUserMoney
         {
@@ -298,30 +358,146 @@ namespace Roulette
         public RelayCommand btnRemoveSetClickCommand { get; private set; }
         public RelayCommand btnMoreMoneyClickCommand { get; private set; }
         public RelayCommand btnLessMoneyClickCommand { get; private set; }
-        public RelayCommand btnJustNumbersClickCommand { get; private set; }
-        public RelayCommand btnOddNumbersClickCommand { get; private set; }
+        public RelayCommand btnJustNumbersMoreMoneyClickCommand { get; private set; }
+        public RelayCommand btnJustNumbersLessMoneyClickCommand { get; private set; }
+        public RelayCommand btnOddNumbersMoreMoneyClickCommand { get; private set; }
+        public RelayCommand btnOddNumbersLessMoneyClickCommand { get; private set; }
         public RelayCommand btnBlackNumbersClickCommand { get; private set; }
         public RelayCommand btnRedNumbersClickCommand { get; private set; }
+        public RelayCommand btnLowNumbersMoreMoneyCommand { get; private set; }
+        public RelayCommand btnLowNumbersLessMoneyCommand { get; private set; }
+        public RelayCommand btnAllRedNumbersMoreMoneyCommand { get; private set; }
+        public RelayCommand btnAllRedNumbersLessMoneyCommand { get; private set; }
+        public RelayCommand btn3MoreMoneyClickCommand { get; private set; }
+        public RelayCommand btn3LessMoneyClickCommand { get; private set; }
+
+        public void btn3LessMoney_Click()
+        {
+            if (Number3MoneySet <= 0) return;
+
+            Number3MoneySet -= UserMoneyRange;
+            UserCompleteSettedMoney -= UserMoneyRange;
+            LoggedInUserMoney += UserMoneyRange;
+        }
+
+        public void btn3MoreMoney_Click()
+        {
+            if (Number3MoneySet >= LoggedInUserMoney) return;
+
+            Number3MoneySet += UserMoneyRange;
+            UserCompleteSettedMoney += UserMoneyRange;
+            LoggedInUserMoney -= UserMoneyRange;
+        }
+
+        public void btnAllRedNumbersLessMoney_Click()
+        {
+            if (AllRedNumbersMoneySet <= 0) return;
+
+            AllRedNumbersMoneySet -= UserMoneyRange;
+            UserCompleteSettedMoney -= UserMoneyRange;
+            LoggedInUserMoney += UserMoneyRange;
+        }
+
+        public void btnAllRedNumbersMoreMoney_Click()
+        {
+            if (AllRedNumbersMoneySet >= LoggedInUserMoney) return;
+
+            AllRedNumbersMoneySet += UserMoneyRange;
+            UserCompleteSettedMoney += UserMoneyRange;
+            LoggedInUserMoney -= UserMoneyRange;
+        }
+
+        public void btnLowNumbersMoreMoney_Click()
+        {
+            if (LowNumbersMoneySet >= LoggedInUserMoney) return;
+
+            LowNumbersMoneySet += UserMoneyRange;
+            UserCompleteSettedMoney += UserMoneyRange;
+            LoggedInUserMoney -= UserMoneyRange;
+        }
+
+        public void btnLowNumbersLessMoney_Click()
+        {
+            if (LowNumbersMoneySet <= 0) return;
+
+            LowNumbersMoneySet -= UserMoneyRange;
+            UserCompleteSettedMoney -= UserMoneyRange;
+            LoggedInUserMoney += UserMoneyRange;
+        }
 
         public void btnJustNumbers_Click()
         {
+            var templist = new FieldTemplateList();
 
+            foreach (var item in _fieldTemplateList)
+            {
+                templist.Add(item);
+            }
+
+            foreach (var item in SelectedFieldNumbers)
+            {
+                templist.RemoveWhere(o => o.Number == item);
+            }
+            templist.RemoveWhere(o => o.Background != "black");
+
+            SelectedFieldNumbers = new ObservableCollection<int>(templist.Select(o => o.Number).ToList());
+
+            foreach (var item in SelectedFieldNumbers)
+            {
+                NotSelectedFieldNumbers.RemoveWhere(o => o == item);
+            }
         }
 
-        public void btnOddNumers_Click()
+        public void btnOddNumersMoreMoney_Click()
         {
+            if (OddNumbersMoneySet >= LoggedInUserMoney) return;
 
+            OddNumbersMoneySet += UserMoneyRange;
+            UserCompleteSettedMoney += UserMoneyRange;
+            LoggedInUserMoney -= UserMoneyRange;
+        }
+
+        public void btnOddNumbersLessMoney_Click()
+        {
+            if (OddNumbersMoneySet <= 0) return;
+
+            OddNumbersMoneySet -= UserMoneyRange;
+            UserCompleteSettedMoney -= UserMoneyRange;
+            LoggedInUserMoney += UserMoneyRange;
         }
 
         public void btnBlackNumbers_Click()
         {
+            var templist = new FieldTemplateList();
 
+            foreach (var item in _fieldTemplateList)
+            {
+                templist.Add(item);
+            }
+
+            foreach (var item in SelectedFieldNumbers)
+            {
+                templist.RemoveWhere(o => o.Number == item);
+            }
+            templist.RemoveWhere(o => o.Background != "black");
+
+            SelectedFieldNumbers = new ObservableCollection<int>(templist.Select(o => o.Number).ToList());
+
+            foreach (var item in SelectedFieldNumbers)
+            {
+                NotSelectedFieldNumbers.RemoveWhere(o => o == item);
+            }
         }
 
         public void btnRedNumbers_Click()
         {
             var templist = new FieldTemplateList();
-            templist = _fieldTemplateList;
+
+            foreach (var item in _fieldTemplateList)
+            {
+                templist.Add(item);
+            }
+
             foreach (var item in SelectedFieldNumbers)
             {
                 templist.RemoveWhere(o => o.Number == item);
