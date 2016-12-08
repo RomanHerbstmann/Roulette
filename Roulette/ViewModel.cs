@@ -270,7 +270,6 @@ namespace Roulette
                         var settedNumberMoney = (int)typeof(ViewModel).GetProperty(varName).GetValue(this);
                         LoggedInUserMoney += settedNumberMoney * 12;
                     }
-                    LoggedInUserMoney -= UserCompleteSettedMoney;
                     return;
                 case "LoggedInUserMoney":
                     var connection = new OleDbConnection(@"Provider = Microsoft.Jet.OleDb.4.0; Data Source = " + ConfigurationManager.AppSettings["Database.Path"]);
