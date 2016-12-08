@@ -2392,7 +2392,25 @@ namespace Roulette
             {
                 double roundRelation = ((roundCount - i) / 100);
 
-                if (roundRelation >= 0.9)
+                if (roundRelation >= 0.99)
+                    await Task.Delay(1);
+                else if (roundRelation >= 0.98)
+                    await Task.Delay(2);
+                else if (roundRelation >= 0.97)
+                    await Task.Delay(3);
+                else if (roundRelation >= 0.96)
+                    await Task.Delay(4);
+                else if (roundRelation >= 0.95)
+                    await Task.Delay(5);
+                else if (roundRelation >= 0.94)
+                    await Task.Delay(6);
+                else if (roundRelation >= 0.93)
+                    await Task.Delay(7);
+                else if (roundRelation >= 0.92)
+                    await Task.Delay(8);
+                else if (roundRelation >= 0.91)
+                    await Task.Delay(9);
+                else if (roundRelation >= 0.9)
                     await Task.Delay(10);
                 else if (roundRelation >= 0.8)
                     await Task.Delay(20);
