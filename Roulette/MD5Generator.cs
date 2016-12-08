@@ -16,18 +16,25 @@ namespace Roulette
         {
             var simpliString = value.ConvertSecureStringToNormalString();
 
-            var md5 = MD5.Create();
-            var inputBytes = Encoding.ASCII.GetBytes(simpliString);
-            var hash = md5.ComputeHash(inputBytes);
-
-            var sb = new StringBuilder();
-
-            for (int i = 0; i < hash.Length; i++)
+            try
             {
-                sb.Append(hash[i].ToString("X2"));
-            }
+                var md5 = MD5.Create();
+                var inputBytes = Encoding.ASCII.GetBytes(simpliString);
+                var hash = md5.ComputeHash(inputBytes);
 
-            return sb.ToString();
+                var sb = new StringBuilder();
+
+                for (int i = 0; i < hash.Length; i++)
+                {
+                    sb.Append(hash[i].ToString("X2"));
+                }
+
+                return sb.ToString();
+            }
+            catch
+            {
+                return "";
+            }
         }
     }
 }

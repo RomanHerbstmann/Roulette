@@ -18,6 +18,10 @@ namespace Roulette
                 valuePtr = Marshal.SecureStringToGlobalAllocUnicode(secureString);
                 return Marshal.PtrToStringUni(valuePtr);
             }
+            catch
+            {
+                return null;
+            }
             finally
             {
                 Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
