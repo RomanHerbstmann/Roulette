@@ -1,7 +1,9 @@
 Sie spielen nach den üblichen Roulette Regeln sie können einen Betrag ihrer wahl auf ein bestimmtest Feld setzen
-und dann eine neue Runde starten. Sie müssen auf mindestens ein Feld oder eine Zahl mindestens ein Euro setzen. 
-Sie gewinnen wenn die Zahl oder das Feld auf das sie gesetzt haben
+und dann eine neue Runde starten.Sie gewinnen wenn die Zahl oder das Feld auf das sie gesetzt haben
 mit der zufällig gezogenen Zahl übereinstimmt.
+
+Sie können auch neue Runden starten wenn sie auf kein Feld oder keine Zahl gesetzt haben. Dabe kann natürlich
+auch kein Gewinn erziehlt werden!!
 
 	Gewinnfaktoren:
 		bestimmte Zahl:		X 12
