@@ -61,11 +61,19 @@
                 <Border.RenderTransform>
                     <RotateTransform Angle="180"/>
                 </Border.RenderTransform>
-                <TextBox Height="25" Text="{Binding NewUserPassword}" Background="#2d2d2d" Foreground="White" FontWeight="DemiBold" Margin="0,4,0,0" BorderThickness="0" Padding="4,4,0,0">
+                <!--<TextBox Height="25" Text="{Binding NewUserPassword}" Background="#2d2d2d" Foreground="White" FontWeight="DemiBold" Margin="0,4,0,0" BorderThickness="0" Padding="4,4,0,0">
                     <TextBox.LayoutTransform>
                         <RotateTransform Angle="-180"/>
                     </TextBox.LayoutTransform>
-                </TextBox>
+                </TextBox>-->
+                <PasswordBox Background="Transparent" BorderThickness="0" Height="25" FontWeight="DemiBold" Margin="-1,4,1,0" Padding="4,4,0,0" Foreground="White" PasswordChar="$">
+                    <intr:Interaction.Behaviors>
+                        <local:PasswordBoxBindingBehavior Password="{Binding NewUserPassword}"/>
+                    </intr:Interaction.Behaviors>
+                    <PasswordBox.LayoutTransform>
+                        <RotateTransform Angle="-180"/>
+                    </PasswordBox.LayoutTransform>
+                </PasswordBox>
             </Border>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">

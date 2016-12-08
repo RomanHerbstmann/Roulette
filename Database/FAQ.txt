@@ -1,0 +1,30 @@
+Sie spielen nach den üblichen Roulette Regeln sie können einen Betrag ihrer wahl auf ein bestimmtest Feld setzen
+und dann eine neue Runde starten. Sie müssen auf mindestens ein Feld oder eine Zahl mindestens ein Euro setzen. 
+Sie gewinnen wenn die Zahl oder das Feld auf das sie gesetzt haben
+mit der zufällig gezogenen Zahl übereinstimmt.
+
+	Gewinnfaktoren:
+		bestimmte Zahl:		X 12
+		die Zahl 0:		X 20
+		Alle schwrzen Felder:	X 6
+		Alle roten Felder:		X 6
+		Alle niedrigen Zahlen:	X 6
+		Alle hohen Zahlen:	X 6
+		Alle geraden Zahlen:	X 6
+		Alle ungeraden Zahlen:	X 6
+
+Der Knopf 'zurücksetzen' setzt all ihr gesetzes Geld zurück dies geschieht nicht automatisch nach jeder Runde.
+
+Sie möchten mehr als ein Euro auf einmal setzen? kein Problem erhöhen sie einfach den Wert der in dem Feld hinter
+'Wie viel möchten sie auf einmal setzen?' steht und schon setzen sie mehr als ein Euro pro Click.
+
+Ihr aktuelles Guthaben steht in der oberen Mitte des Bildschirms, Ihr Benutername am oberen rechten Rand des 
+Bildschirms und ihr Benutzernummer am oberen linken Rand des Bildschirms.
+
+Sie können sich über den 'Logout' Knopf am linken Bildschirmrand ausloggen oder das Programm über den 'schließen' 
+Knopf ebenfalls am linken Bildschirmrand beenden.
+
+Die Anzahl der zahlen sowie die dauer die eine Zahl neu generiert werden sind genau so zufällig wie die Zahl
+die gezogen wird.
+
+Zum schließen des FAQs einfach auf das 'x' am oberen rechten Bildschirmrand Klicken.

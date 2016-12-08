@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Roulette"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="Login" 
         Height="230" 
@@ -60,11 +61,19 @@
                 <Border.RenderTransform>
                     <RotateTransform Angle="180"/>
                 </Border.RenderTransform>
-                <TextBox Height="25" Text="{Binding Password}" Background="#2d2d2d" Foreground="White" FontWeight="DemiBold" Margin="0,4,0,0" BorderThickness="0" Padding="4,4,0,0">
+                <!--<TextBox Height="25" Text="{Binding Password}" Background="#2d2d2d" Foreground="White" FontWeight="DemiBold" Margin="0,4,0,0" BorderThickness="0" Padding="4,4,0,0">
                     <TextBox.LayoutTransform>
                         <RotateTransform Angle="-180"/>
                     </TextBox.LayoutTransform>
-                </TextBox>
+                </TextBox>-->
+                <PasswordBox Background="Transparent" BorderThickness="0" Height="25" FontWeight="DemiBold" Margin="0,4,0,0" Padding="4,4,0,0" Foreground="White" PasswordChar="$">
+                    <i:Interaction.Behaviors>
+                        <local:PasswordBoxBindingBehavior Password="{Binding Password}"/>
+                    </i:Interaction.Behaviors>
+                    <PasswordBox.LayoutTransform>
+                        <RotateTransform Angle="-180"/>
+                    </PasswordBox.LayoutTransform>
+                </PasswordBox>
             </Border>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">

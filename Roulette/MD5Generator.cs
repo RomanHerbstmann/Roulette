@@ -4,16 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
+using System.Runtime.InteropServices;
+using System.Security;
 
 namespace Roulette
 {
     public class MD5Generator
     {
 
-        public string GenerateMd5(string value)
+        public string GenerateMd5(SecureString value)
         {
+            var simpliString = value.ConvertSecureStringToNormalString();
+
             var md5 = MD5.Create();
-            var inputBytes = Encoding.ASCII.GetBytes(value);
+            var inputBytes = Encoding.ASCII.GetBytes(simpliString);
             var hash = md5.ComputeHash(inputBytes);
 
             var sb = new StringBuilder();
@@ -27,3 +31,4 @@ namespace Roulette
         }
     }
 }
+
