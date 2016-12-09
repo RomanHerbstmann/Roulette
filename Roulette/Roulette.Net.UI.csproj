@@ -137,8 +137,8 @@
     <Resource Include="Roulette.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Roulette.Net.Core\Roulette.Net.Core.csproj">
-      <Project>{1fcc2f36-82c2-4739-880f-3e8e4a4a22fc}</Project>
+    <ProjectReference Include="..\src\Roulette.Net.Core\Roulette.Net.Core.csproj">
+      <Project>{1e707623-ea9f-4ebf-99f7-bfd160485f1c}</Project>
       <Name>Roulette.Net.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\src\Roulette.Net.Domain\Roulette.Net.Domain.csproj">
