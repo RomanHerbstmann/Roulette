@@ -29,4 +29,6 @@ Knopf ebenfalls am linken Bildschirmrand beenden.
 Die Anzahl der zahlen sowie die dauer die eine Zahl neu generiert werden sind genau so zufällig wie die Zahl
 die gezogen wird.
 
+Das Spiel ist optimiert für eine Auflösung von 1920 X 1080 Pixeln und einer Bildschirmgröße von 27 oder 47 Zoll.
+
 Zum schließen des FAQs einfach auf das 'x' am oberen rechten Bildschirmrand Klicken.
