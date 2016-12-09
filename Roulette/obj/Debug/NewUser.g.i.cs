@@ -53,7 +53,7 @@ namespace Roulette {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Roulette;component/newuser.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Roulette.Net;component/newuser.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\NewUser.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

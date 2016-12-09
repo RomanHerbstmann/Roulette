@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roulette.Net.UI", "Roulette\Roulette.Net.UI.csproj", "{7F5603E6-4D30-4E18-98C8-8DA4F03425F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8382DC47-B2C2-4246-9D4C-EC8F42C75248}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roulette.Net.Domain", "src\Roulette.Net.Domain\Roulette.Net.Domain.csproj", "{CC72684C-9F98-4632-BFAC-814C25610670}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roulette.Net.Core", "Roulette.Net.Core\Roulette.Net.Core.csproj", "{1FCC2F36-82C2-4739-880F-3E8E4A4A22FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7F5603E6-4D30-4E18-98C8-8DA4F03425F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F5603E6-4D30-4E18-98C8-8DA4F03425F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F5603E6-4D30-4E18-98C8-8DA4F03425F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F5603E6-4D30-4E18-98C8-8DA4F03425F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC72684C-9F98-4632-BFAC-814C25610670}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC72684C-9F98-4632-BFAC-814C25610670}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC72684C-9F98-4632-BFAC-814C25610670}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC72684C-9F98-4632-BFAC-814C25610670}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FCC2F36-82C2-4739-880F-3E8E4A4A22FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FCC2F36-82C2-4739-880F-3E8E4A4A22FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FCC2F36-82C2-4739-880F-3E8E4A4A22FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FCC2F36-82C2-4739-880F-3E8E4A4A22FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7F5603E6-4D30-4E18-98C8-8DA4F03425F3} = {8382DC47-B2C2-4246-9D4C-EC8F42C75248}
+		{CC72684C-9F98-4632-BFAC-814C25610670} = {8382DC47-B2C2-4246-9D4C-EC8F42C75248}
+		{1FCC2F36-82C2-4739-880F-3E8E4A4A22FC} = {8382DC47-B2C2-4246-9D4C-EC8F42C75248}
+	EndGlobalSection
+EndGlobal
