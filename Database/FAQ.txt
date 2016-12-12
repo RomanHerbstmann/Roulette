@@ -19,6 +19,10 @@ Der Knopf 'zurücksetzen' setzt all ihr gesetzes Geld zurück dies geschieht nicht
 
 Sie möchten mehr als ein Euro auf einmal setzen? kein Problem erhöhen sie einfach den Wert der in dem Feld hinter
 'Wie viel möchten sie auf einmal setzen?' steht und schon setzen sie mehr als ein Euro pro Click.
+Sie möchten den wert um mehr als plus eins erhöhen auch kein Problem klicken sie einfach mit der linken
+Maustatste auf einen der Euroscheine und schon wird der Betrag um den entsprechenden Wert erhöht.
+Möchten sie den Wert wieder um mehr als einen verringern klicken sie einfach mit der rechten Maustaste auf einen
+der Euroscheine und schon wird der Betrag un den entsprechenden Wert verringert.
 
 Ihr aktuelles Guthaben steht in der oberen Mitte des Bildschirms, Ihr Benutername am oberen rechten Rand des 
 Bildschirms und ihr Benutzernummer am oberen linken Rand des Bildschirms.
