@@ -48,6 +48,20 @@ namespace Roulette
         {
             PropertyChanged += OnPropertyChanged;
 
+            btnUserCompleteSettedMoneyMinus5ClickCommand = new RelayCommand(btnUserCompleteSettedMoneyMinus5_Click);
+            btnUserCompleteSettedMoneyMinus10ClickCommand = new RelayCommand(btnUserCompleteSettedMoneyMinus10_Click);
+            btnUserCompleteSettedMoneyMinus20ClickCommand = new RelayCommand(btnUserCompleteSettedMoneyMinus20_Click);
+            btnUserCompleteSettedMoneyMinus50ClickCommand = new RelayCommand(btnUserCompleteSettedMoneyMinus50_Click);
+            btnUserCompleteSettedMoneyMinus100ClickCommand = new RelayCommand(btnUserCompleteSettedMoneyMinus100_Click);
+            btnUserCompleteSettedMoneyMinus200ClickCommand = new RelayCommand(btnUserCompleteSettedMoneyMinus200_Click);
+            btnUserCompleteSettedMoneyMinus500ClickCommand = new RelayCommand(btnUserCompleteSettedMoneyMinus500_Click);
+            btnUserCompleteSettedMoneyPlus5ClickCommand = new RelayCommand(btnUserCompleteSettedMoneyPlus5_Click);
+            btnUserCompleteSettedMoneyPlus10ClickCommand = new RelayCommand(btnUserCompleteSettedMoneyPlus10_Click);
+            btnUserCompleteSettedMoneyPlus20ClickCommand = new RelayCommand(btnUserCompleteSettedMoneyPlus20_Click);
+            btnUserCompleteSettedMoneyPlus50ClickCommand = new RelayCommand(btnUserCompleteSettedMoneyPlus50_Click);
+            btnUserCompleteSettedMoneyPlus100ClickCommand = new RelayCommand(btnUserCompleteSettedMoneyPlus100_Click);
+            btnUserCompleteSettedMoneyPlus200ClickCommand = new RelayCommand(btnUserCompleteSettedMoneyPlus200_Click);
+            btnUserCompleteSettedMoneyPlus500ClickCommand = new RelayCommand(btnUserCompleteSettedMoneyPlus500_Click);
             btnHideFAQClickCommand = new RelayCommand(btnHideFAQ_Click);
             btnShowFAQClickCommand = new RelayCommand(btnShowFAQ_Click);
             btnLogoutClickCommand = new RelayCommand(btnLogout_Click);
@@ -1347,6 +1361,20 @@ namespace Roulette
             var reader = _dbConnection.ExecuteSqlNonQuery("Update [User] Set [Money]='" + LoggedInUserMoney + "' Where [Username]='" + LoggedInUsername + "'");
         }
 
+        public RelayCommand btnUserCompleteSettedMoneyMinus5ClickCommand { get; private set; }
+        public RelayCommand btnUserCompleteSettedMoneyMinus10ClickCommand { get; private set; }
+        public RelayCommand btnUserCompleteSettedMoneyMinus20ClickCommand { get; private set; }
+        public RelayCommand btnUserCompleteSettedMoneyMinus50ClickCommand { get; private set; }
+        public RelayCommand btnUserCompleteSettedMoneyMinus100ClickCommand { get; private set; }
+        public RelayCommand btnUserCompleteSettedMoneyMinus200ClickCommand { get; private set; }
+        public RelayCommand btnUserCompleteSettedMoneyMinus500ClickCommand { get; private set; }
+        public RelayCommand btnUserCompleteSettedMoneyPlus5ClickCommand { get; private set; }
+        public RelayCommand btnUserCompleteSettedMoneyPlus10ClickCommand { get; private set; }
+        public RelayCommand btnUserCompleteSettedMoneyPlus20ClickCommand { get; private set; }
+        public RelayCommand btnUserCompleteSettedMoneyPlus50ClickCommand { get; private set; }
+        public RelayCommand btnUserCompleteSettedMoneyPlus100ClickCommand { get; private set; }
+        public RelayCommand btnUserCompleteSettedMoneyPlus200ClickCommand { get; private set; }
+        public RelayCommand btnUserCompleteSettedMoneyPlus500ClickCommand { get; private set; }
         public RelayCommand btnHideFAQClickCommand { get; private set; }
         public RelayCommand btnShowFAQClickCommand { get; private set; }
         public RelayCommand btnLogoutClickCommand { get; private set; }
@@ -1446,6 +1474,90 @@ namespace Roulette
         public RelayCommand btn34LessMoneyClickCommand { get; private set; }
         public RelayCommand btn0MoreMoneyClickCommand { get; private set; }
         public RelayCommand btn0LessMoneyClickCommand { get; private set; }
+
+        public void btnUserCompleteSettedMoneyMinus500_Click()
+        {
+            if (UserMoneyRange - 500 <= 0) return;
+            UserMoneyRange -= 500;
+        }
+
+        public void btnUserCompleteSettedMoneyMinus200_Click()
+        {
+            if (UserMoneyRange - 200 <= 0) return;
+            UserMoneyRange -= 200;
+        }
+
+        public void btnUserCompleteSettedMoneyMinus100_Click()
+        {
+            if (UserMoneyRange - 100 <= 0) return;
+            UserMoneyRange -= 100;
+        }
+
+        public void btnUserCompleteSettedMoneyMinus50_Click()
+        {
+            if (UserMoneyRange - 50 <= 0) return;
+            UserMoneyRange -= 50;
+        }
+
+        public void btnUserCompleteSettedMoneyMinus20_Click()
+        {
+            if (UserMoneyRange - 20 <= 0) return;
+            UserMoneyRange -= 20;
+        }
+
+        public void btnUserCompleteSettedMoneyMinus10_Click()
+        {
+            if (UserMoneyRange - 10 <= 0) return;
+            UserMoneyRange -= 10;
+        }
+
+        public void btnUserCompleteSettedMoneyMinus5_Click()
+        {
+            if (UserMoneyRange - 5 <= 0) return;
+            UserMoneyRange -= 5;
+        }
+
+        public void btnUserCompleteSettedMoneyPlus500_Click()
+        {
+            if (LoggedInUserMoney < 500 + UserMoneyRange) return;
+            UserMoneyRange += 500;
+        }
+
+        public void btnUserCompleteSettedMoneyPlus200_Click()
+        {
+            if (LoggedInUserMoney < 200 + UserMoneyRange) return;
+            UserMoneyRange += 200;
+        }
+
+        public void btnUserCompleteSettedMoneyPlus100_Click()
+        {
+            if (LoggedInUserMoney < 100 + UserMoneyRange) return;
+            UserMoneyRange += 100;
+        }
+
+        public void btnUserCompleteSettedMoneyPlus50_Click()
+        {
+            if (LoggedInUserMoney < 50 + UserMoneyRange) return;
+            UserMoneyRange += 50;
+        }
+
+        public void btnUserCompleteSettedMoneyPlus20_Click()
+        {
+            if (LoggedInUserMoney < 20 + UserMoneyRange) return;
+            UserMoneyRange += 20;
+        }
+
+        public void btnUserCompleteSettedMoneyPlus10_Click()
+        {
+            if (LoggedInUserMoney < 10 + UserMoneyRange) return;
+            UserMoneyRange += 10;
+        }
+
+        public void btnUserCompleteSettedMoneyPlus5_Click()
+        {
+            if (LoggedInUserMoney < 5 + UserMoneyRange) return;
+            UserMoneyRange += 5;
+        }
 
         public void btnHideFAQ_Click()
         {
